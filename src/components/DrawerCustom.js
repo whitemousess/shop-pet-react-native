@@ -29,12 +29,17 @@ function DrawerCustom(props) {
               height: 80,
               width: 80,
               borderRadius: 40,
-              marginBottom: 10,
+              marginBottom: 10,marginRight: 24
             }}
           />
-          <Text style={{ color: "#000", fontSize: 18, marginBottom: 5 }}>
-            Chuot bach
-          </Text>
+          <View>
+            <Text style={{ color: "#000", fontSize: 18, marginBottom: 5 }}>
+              Chuot bach
+            </Text>
+            <Text style={{ color: "#000", fontSize: 18, marginBottom: 5 }}>
+              Quản lý
+            </Text>
+          </View>
         </ImageBackground>
 
         <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 10 }}>
@@ -44,7 +49,7 @@ function DrawerCustom(props) {
 
       <View
         style={{
-          padding: 20,
+          padding: 10,
           borderTopWidth: 1,
           borderTopColor: "#ccc",
         }}

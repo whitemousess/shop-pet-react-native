@@ -11,29 +11,30 @@ function TabNavigator() {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: false,
         tabBarStyle: { backgroundColor: "#2e3192" },
         tabBarInactiveTintColor: "#fff",
         tabBarActiveTintColor: "yellow",
       }}
     >
       <Tab.Screen
-        name="Cat"
-        component={CatScreen}
-        options={{
-          title: "Mèo cảnh",
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome5 name="cat" size={20} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen
         name="Dog"
         component={DogScreen}
         options={{
           title: "Chó cảnh",
+          headerTitle: "Chó Cảnh",
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="dog" size={20} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Cat"
+        component={CatScreen}
+        options={{
+          title: "Mèo cảnh",
+          headerTitle: "Mèo Cảnh",
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome5 name="cat" size={20} color={color} />
           ),
         }}
       />

@@ -7,18 +7,20 @@ function ListItem({ name, image }) {
     <View
       style={{
         marginBottom: 20,
+        marginRight: 34,
       }}
     >
       <View>
         <Image
           source={image}
-          style={{ width: 120, height: 120, borderRadius: 10, marginRight: 8 }}
+          style={{ width: 160, height: 160, borderRadius: 10 }}
         />
-        <View style={{ width: windowWidth - 220 }}>
+        <View>
           <Text
             style={{
               color: "#333",
               fontSize: 14,
+              textAlign: "center",
             }}
           >
             {name}

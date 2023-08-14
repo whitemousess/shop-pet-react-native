@@ -16,7 +16,15 @@ const Dog = [
 
 function DogScreen() {
   return (
-    <SafeAreaView style={{ flex: 1 , marginRight: 8, marginLeft: 18}}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginLeft: 26,
+        marginTop: 12,
+      }}
+    >
       <ScrollView>
         <View
           style={{
@@ -25,7 +33,7 @@ function DogScreen() {
           }}
         >
           {Dog.map((data) => (
-            <ListItem key={data.id} image={data.image} name={data.name}  style={{ flex: 0.5 }} />
+            <ListItem key={data.id} image={data.image} name={data.name} />
           ))}
         </View>
       </ScrollView>
