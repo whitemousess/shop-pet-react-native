@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import CatScreen from "../Screens/CatScreen";
 import DogScreen from "../Screens/DogScreen";
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
+import AddScreen from "../Screens/AddScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,6 +28,18 @@ function TabNavigator() {
           ),
         }}
       />
+      <Tab.Screen
+        name="Add"
+        component={AddScreen}
+        options={{
+          tabBarLabel: () => null,
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="add-circle" size={30} color={color} />
+          ),
+        }}
+      />
+
       <Tab.Screen
         name="Cat"
         component={CatScreen}

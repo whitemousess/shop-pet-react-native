@@ -24,13 +24,15 @@ function InputCustom({
           placeholder={label}
           keyboardType={keyboardType}
           style={{ flex: 1, paddingVertical: 0 , marginBottom: 30}}
+          placeholderTextColor="#ccc"
           secureTextEntry={true}
         />
       ) : (
         <TextInput
           placeholder={label}
           keyboardType={keyboardType}
-          style={{ flex: 1, paddingVertical: 0 , marginBottom: 30}}
+          placeholderTextColor="#ccc"
+          style={{ flex: 1, paddingVertical: 0 , marginBottom: 30,color: "#000"}}
         />
       )}
 

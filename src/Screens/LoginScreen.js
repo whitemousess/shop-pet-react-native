@@ -4,7 +4,6 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity,
   StyleSheet,
 } from "react-native";
 
@@ -34,7 +33,7 @@ function LoginScreen({ navigation }) {
               textAlign: "center",
             }}
           >
-            Login
+            Đăng nhập
           </Text>
 
           <InputCustom
@@ -64,7 +63,7 @@ function LoginScreen({ navigation }) {
             fieldButtonFunction={() => {}}
           />
 
-              <ButtonCustom label={"Login"} onPress={() => {}} />
+              <ButtonCustom label={"Đăng nhập"} onPress={() => {}} />
     
               <Text
                 onPress={() => navigation.navigate("Register")}

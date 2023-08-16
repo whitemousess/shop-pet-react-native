@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  ScrollView,
 } from "react-native";
 
 // icons
@@ -19,85 +20,86 @@ import ButtonCustom from "../components/ButtonCustom";
 function RegisterScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        <View style={styles.imageContainer}>
-          <Image style={styles.image} source={LoginLogo} />
+      <ScrollView>
+        <View>
+          <View style={styles.imageContainer}>
+            <Image style={styles.image} source={LoginLogo} />
+          </View>
+  
+          <View style={styles.contentLogin}>
+            <Text
+              style={{
+                fontSize: 28,
+                fontWeight: "500",
+                color: "#333",
+                marginBottom: 30,
+                textAlign: "center",
+              }}
+            >
+              Đăng ký
+            </Text>
+  
+            <InputCustom
+              label={"Tài khoản"}
+              icon={
+                <MaterialIcons
+                  name="person"
+                  size={28}
+                  color="#666"
+                  style={{ marginRight: 5 }}
+                />
+              }
+            />
+  
+            <InputCustom
+              label={"Email"}
+              icon={
+                <MaterialIcons
+                  name="alternate-email"
+                  size={28}
+                  color="#666"
+                  style={{ marginRight: 5 }}
+                />
+              }
+              keyboardType="email-address"
+            />
+  
+            <InputCustom
+              label={"Mật khẩu"}
+              icon={
+                <Ionicons
+                  name="ios-lock-closed-outline"
+                  size={20}
+                  color="#666"
+                  style={{ marginRight: 5 }}
+                />
+              }
+              inputType="password"
+            />
+  
+            <InputCustom
+              label={"Mật khẩu"}
+              icon={
+                <Ionicons
+                  name="ios-lock-closed-outline"
+                  size={20}
+                  color="#666"
+                  style={{ marginRight: 5 }}
+                />
+              }
+              inputType="password"
+              fieldButtonLabel={"Forgot?"}
+              fieldButtonFunction={() => {}}
+            />
+  
+            <ButtonCustom label={"Đăng ký"} onPress={() => {}} />
+  
+            <Text onPress={() => navigation.navigate("Login")}>
+              Đã có tài khoản!
+            </Text>
+          </View>
         </View>
-
-        <View style={styles.contentLogin}>
-          <Text
-            style={{
-              fontSize: 28,
-              fontWeight: "500",
-              color: "#333",
-              marginBottom: 30,
-              textAlign: "center",
-            }}
-          >
-            Login
-          </Text>
-
-          <InputCustom
-            label={"Tài khoản"}
-            icon={
-              <MaterialIcons
-                name="person"
-                size={28}
-                color="#666"
-                style={{ marginRight: 5 }}
-              />
-            }
-            keyboardType="username"
-          />
-
-          <InputCustom
-            label={"Email"}
-            icon={
-              <MaterialIcons
-                name="alternate-email"
-                size={28}
-                color="#666"
-                style={{ marginRight: 5 }}
-              />
-            }
-            keyboardType="email-address"
-          />
-
-          <InputCustom
-            label={"Mật khẩu"}
-            icon={
-              <Ionicons
-                name="ios-lock-closed-outline"
-                size={20}
-                color="#666"
-                style={{ marginRight: 5 }}
-              />
-            }
-            inputType="password"
-          />
-
-          <InputCustom
-            label={"Mật khẩu"}
-            icon={
-              <Ionicons
-                name="ios-lock-closed-outline"
-                size={20}
-                color="#666"
-                style={{ marginRight: 5 }}
-              />
-            }
-            inputType="password"
-            fieldButtonLabel={"Forgot?"}
-            fieldButtonFunction={() => {}}
-          />
-
-          <ButtonCustom label={"Login"} onPress={() => {}} />
-
-          <Text onPress={() => navigation.navigate("Login")}>
-            Đã có tài khoản!
-          </Text>
-        </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

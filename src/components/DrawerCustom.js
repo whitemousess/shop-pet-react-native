@@ -29,7 +29,8 @@ function DrawerCustom(props) {
               height: 80,
               width: 80,
               borderRadius: 40,
-              marginBottom: 10,marginRight: 24
+              marginBottom: 10,
+              marginRight: 24
             }}
           />
           <View>
