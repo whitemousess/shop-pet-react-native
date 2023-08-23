@@ -1,6 +1,6 @@
 import axios from "axios";
 import React , {useEffect,useState} from "react";
-import { ScrollView, SafeAreaView, View } from "react-native";
+import { ScrollView, SafeAreaView, View,Text } from "react-native";
 
 import ListItem from "../components/ListItems";
 
@@ -9,7 +9,7 @@ function DogScreen() {
 
   useEffect(() => {
     // Thực hiện yêu cầu GET khi component được mount
-    axios.get('http://192.168.1.5:1407/api/pet/show?page=1&per_page=2&type=dogs')
+    axios.get('http://172.20.10.4:1407/api/pet/show?page=1&per_page=2&type=dogs')
       .then(response => {
         setData(response.data.data);
       })
@@ -21,6 +21,7 @@ function DogScreen() {
   return (
     <SafeAreaView>
       <ScrollView>
+      {data.length > 0 ? (
         <View
           style={{
             flexDirection: "row",
@@ -32,7 +33,11 @@ function DogScreen() {
           {data.map((data) => (
             <ListItem key={data._id} image={data.image} name={data.name} />
           ))}
-        </View>
+        </View>) : (
+          <View style={{ alignItems: "center", marginTop: 20 }}>
+            <Text>Chưa có thông tin</Text>
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

@@ -2,30 +2,32 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { windowWidth } from "../utils/Dimensions";
 
-function ListItem({ name, image }) {
+function ListItem({ data, navigation }) {
   return (
-    <View
-      style={{
-        marginBottom: 20,
-        margin: 20
-      }}
-    >
-      <Image
-        source={{uri : image}}
-        style={{ width: 160, height: 160, borderRadius: 10 }}
-      />
-      <View>
-        <Text
-          style={{
-            color: "#333",
-            fontSize: 14,
-            textAlign: "center",
-          }}
-        >
-          {name}
-        </Text>
+    <TouchableOpacity>
+      <View
+        style={{
+          marginBottom: 20,
+          margin: 20,
+        }}
+      >
+        <Image
+          source={{ uri: data.image }}
+          style={{ width: 160, height: 160, borderRadius: 10 }}
+        />
+        <View>
+          <Text
+            style={{
+              color: "#333",
+              fontSize: 14,
+              textAlign: "center",
+            }}
+          >
+            {data.name}
+          </Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
