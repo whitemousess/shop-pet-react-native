@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-function UploadImage() {
+function UploadImage(props) {
   const [selectImage, setSelectImage] = useState("");
 
   const TakePicture = async () => {
@@ -20,6 +20,7 @@ function UploadImage() {
 
     if (!result.canceled) {
       setSelectImage(result.assets[0].uri);
+      props.onImageUpload(result.assets[0].uri)
     }
   };
 

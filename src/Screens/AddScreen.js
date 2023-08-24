@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
 import {
   StyleSheet,
   View,
@@ -17,31 +16,36 @@ import ButtonCustom from "../components/ButtonCustom";
 import UploadImage from "../components/UploadImage";
 
 function AddScreen() {
-  const [type, setType] = useState();
+  const [type, setType] = useState("");
   const [data, setData] = useState({ name: "", info: "" });
+  const [image, setImage] = useState(null)
 
   const handlePressOutside = () => {
-    Keyboard.dismiss(); // Đóng bàn phím khi người dùng bấm ra ngoài
+    Keyboard.dismiss();
   };
 
-  const handleText = (e) => {
-    const newData = {...data}
-    newData[e.target.name] = e.target.value;
-    console.log("Tên đã thay đổi:", newData);
+  const handleText = (key, value) => {
+    setData((prevData) => ({
+      ...prevData,
+      [key]: value,
+    }));
   };
+
+  const handleImageUpload = (imageUri) => {
+    setImage(imageUri)
+  }
 
   return (
     <TouchableWithoutFeedback onPress={handlePressOutside}>
       <SafeAreaView style={styles.container}>
         <Text style={styles.header}>Thêm thông tin</Text>
 
-        <UploadImage />
+        <UploadImage onImageUpload={handleImageUpload} />
 
         <TextInput
           style={styles.input}
           value={data.name}
-          name="name"
-          onChangeText={handleText}
+          onChangeText={(text) => handleText("name", text)}
           placeholder="Tên ..."
           placeholderTextColor="#ccc"
         />
@@ -49,14 +53,14 @@ function AddScreen() {
         <TextInput
           style={styles.input}
           value={data.info}
-          onChangeText={handleText}
+          onChangeText={(text) => handleText("info", text)}
           placeholder="Thông tin ..."
           placeholderTextColor="#ccc"
         />
 
         <Picker
           selectedValue={type}
-          onValueChange={(itemValue, itemIndex) => setType(itemValue)}
+          onValueChange={(itemValue) => setType(itemValue)}
         >
           <Picker.Item label="Chọn vật nuôi" value="" />
           <Picker.Item label="Chó cảnh" value="dogs" />
