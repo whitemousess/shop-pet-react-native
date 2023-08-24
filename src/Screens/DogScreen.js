@@ -9,7 +9,7 @@ function DogScreen() {
 
   useEffect(() => {
     // Thực hiện yêu cầu GET khi component được mount
-    axios.get('http://172.20.10.4:1407/api/pet/show?page=1&per_page=2&type=dogs')
+    axios.get('http://192.168.253.1:1407/api/pet/show?page=1&per_page=2&type=dogs')
       .then(response => {
         setData(response.data.data);
       })
@@ -31,7 +31,7 @@ function DogScreen() {
           }}
         >
           {data.map((data) => (
-            <ListItem key={data._id} image={data.image} name={data.name} />
+            <ListItem key={data._id} data={data} />
           ))}
         </View>) : (
           <View style={{ alignItems: "center", marginTop: 20 }}>

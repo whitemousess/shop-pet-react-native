@@ -18,9 +18,16 @@ import UploadImage from "../components/UploadImage";
 
 function AddScreen() {
   const [type, setType] = useState();
+  const [data, setData] = useState({ name: "", info: "" });
 
   const handlePressOutside = () => {
     Keyboard.dismiss(); // Đóng bàn phím khi người dùng bấm ra ngoài
+  };
+
+  const handleText = (e) => {
+    const newData = {...data}
+    newData[e.target.name] = e.target.value;
+    console.log("Tên đã thay đổi:", newData);
   };
 
   return (
@@ -30,15 +37,26 @@ function AddScreen() {
 
         <UploadImage />
 
-        <TextInput style={styles.input} placeholder="Tên ..." placeholderTextColor="#ccc"/>
+        <TextInput
+          style={styles.input}
+          value={data.name}
+          name="name"
+          onChangeText={handleText}
+          placeholder="Tên ..."
+          placeholderTextColor="#ccc"
+        />
 
-        <TextInput style={styles.input} placeholder="Thông tin ..." placeholderTextColor="#ccc"/>
-        
+        <TextInput
+          style={styles.input}
+          value={data.info}
+          onChangeText={handleText}
+          placeholder="Thông tin ..."
+          placeholderTextColor="#ccc"
+        />
+
         <Picker
           selectedValue={type}
-          onValueChange={(itemValue, itemIndex) =>
-            setType(itemValue)
-          }
+          onValueChange={(itemValue, itemIndex) => setType(itemValue)}
         >
           <Picker.Item label="Chọn vật nuôi" value="" />
           <Picker.Item label="Chó cảnh" value="dogs" />
