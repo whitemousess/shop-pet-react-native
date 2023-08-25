@@ -9,7 +9,7 @@ function DogScreen() {
 
   useEffect(() => {
     // Thực hiện yêu cầu GET khi component được mount
-    axios.get('http://192.168.1.5:1407/api/pet/show?page=1&per_page=2&type=dogs')
+    axios.get('http://192.168.253.1:1407/api/pet/show?page=1&per_page=2&type=dogs')
       .then(response => {
         setData(response.data.data);
       })

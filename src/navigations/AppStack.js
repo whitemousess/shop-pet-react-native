@@ -8,6 +8,7 @@ import {
   Feather,
 } from "react-native-vector-icons";
 
+import DogScreen from "../Screens/DogScreen"
 import TabNavigator from "./TabNavigator";
 import ProfileScreen from "../Screens/ProfileScreen";
 import SettingScreen from "../Screens/SettingScreen";
@@ -30,7 +31,9 @@ const UserStack = () => {
       <Stack.Screen
         name="EditUser"
         component={EditProfileScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   );
@@ -84,7 +87,7 @@ function AppStack() {
           tabBarBadgeStyle: { backgroundColor: "red", color: "white" }, // Style của badge
           drawerIcon: ({ color, size }) => (
             <Feather name="shopping-bag" color={color} size={size}>
-              {cartCount ? (<FontAwesome name="circle" color={"red"}/>) : null}
+              {cartCount ? <FontAwesome name="circle" color={"red"} /> : null}
             </Feather>
           ),
         }}

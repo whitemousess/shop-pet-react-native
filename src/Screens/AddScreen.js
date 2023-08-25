@@ -7,6 +7,7 @@ import {
   Keyboard,
   TextInput,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 
 // Picker
@@ -18,7 +19,7 @@ import UploadImage from "../components/UploadImage";
 function AddScreen() {
   const [type, setType] = useState("");
   const [data, setData] = useState({ name: "", info: "" });
-  const [image, setImage] = useState(null)
+  const [image, setImage] = useState(null);
 
   const handlePressOutside = () => {
     Keyboard.dismiss();
@@ -29,46 +30,52 @@ function AddScreen() {
       ...prevData,
       [key]: value,
     }));
+    console.log(data);
   };
 
   const handleImageUpload = (imageUri) => {
-    setImage(imageUri)
-  }
+    setImage(imageUri);
+  };
 
   return (
-    <TouchableWithoutFeedback onPress={handlePressOutside}>
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.header}>Thêm thông tin</Text>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+    >
+      <TouchableWithoutFeedback onPress={handlePressOutside}>
+        <SafeAreaView style={styles.container}>
+          <Text style={styles.header}>Thêm thông tin</Text>
 
-        <UploadImage onImageUpload={handleImageUpload} />
+          <UploadImage onImageUpload={handleImageUpload} />
 
-        <TextInput
-          style={styles.input}
-          value={data.name}
-          onChangeText={(text) => handleText("name", text)}
-          placeholder="Tên ..."
-          placeholderTextColor="#ccc"
-        />
+          <TextInput
+            style={styles.input}
+            value={data.name}
+            onChangeText={(text) => handleText("name", text)}
+            placeholder="Tên ..."
+            placeholderTextColor="#ccc"
+          />
 
-        <TextInput
-          style={styles.input}
-          value={data.info}
-          onChangeText={(text) => handleText("info", text)}
-          placeholder="Thông tin ..."
-          placeholderTextColor="#ccc"
-        />
+          <TextInput
+            style={styles.input}
+            value={data.info}
+            onChangeText={(text) => handleText("info", text)}
+            placeholder="Thông tin ..."
+            placeholderTextColor="#ccc"
+          />
 
-        <Picker
-          selectedValue={type}
-          onValueChange={(itemValue) => setType(itemValue)}
-        >
-          <Picker.Item label="Chọn vật nuôi" value="" />
-          <Picker.Item label="Chó cảnh" value="dogs" />
-          <Picker.Item label="Mèo cảnh" value="cats" />
-        </Picker>
-        <ButtonCustom label={"Thêm"} onPress={() => {}} />
-      </SafeAreaView>
-    </TouchableWithoutFeedback>
+          <Picker
+            selectedValue={type}
+            onValueChange={(itemValue) => setType(itemValue)}
+          >
+            <Picker.Item label="Chọn vật nuôi" value="" />
+            <Picker.Item label="Chó cảnh" value="dogs" />
+            <Picker.Item label="Mèo cảnh" value="cats" />
+          </Picker>
+          <ButtonCustom label={"Thêm"} onPress={() => {}} />
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
+    </ScrollView>
   );
 }
 
