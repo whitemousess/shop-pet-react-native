@@ -5,14 +5,15 @@ import {
   Ionicons,
   FontAwesome5,
   FontAwesome,
-  Feather,
+  MaterialIcons,
+  MaterialCommunityIcons,
 } from "react-native-vector-icons";
 
-import DogScreen from "../Screens/DogScreen"
 import TabNavigator from "./TabNavigator";
 import ProfileScreen from "../Screens/ProfileScreen";
-import SettingScreen from "../Screens/SettingScreen";
 import EditProfileScreen from "../Screens/EditProfileScreen";
+import ManagerScreen from "../Screens/ManagerScreen";
+import EditPetScreen from "../Screens/EditPetScreen";
 
 import DrawerCustom from "../components/DrawerCustom";
 import CartScreen from "../Screens/CartScreen";
@@ -35,6 +36,15 @@ const UserStack = () => {
           headerShown: false,
         }}
       />
+    </Stack.Navigator>
+  );
+};
+
+const ManagerStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Manager" component={ManagerScreen} />
+      <Stack.Screen name="Edit" component={EditPetScreen} />
     </Stack.Navigator>
   );
 };
@@ -86,21 +96,25 @@ function AppStack() {
           tabBarBadge: 3, // Số lượng hiển thị trên badge
           tabBarBadgeStyle: { backgroundColor: "red", color: "white" }, // Style của badge
           drawerIcon: ({ color, size }) => (
-            <Feather name="shopping-bag" color={color} size={size}>
+            <MaterialIcons name="shopping-cart" color={color} size={size}>
               {cartCount ? <FontAwesome name="circle" color={"red"} /> : null}
-            </Feather>
+            </MaterialIcons>
           ),
         }}
       />
 
       <Drawer.Screen
-        name="Setting"
-        component={SettingScreen}
+        name="ManagerStack"
+        component={ManagerStack}
         options={{
           title: "",
-          drawerLabel: "Cài đặt",
-          drawerIcon: ({ color }) => (
-            <Ionicons name="settings-sharp" size={24} color={color} />
+          drawerLabel: "Quản lý",
+          drawerIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="database-settings"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />

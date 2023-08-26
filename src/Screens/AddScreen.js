@@ -71,7 +71,6 @@ function AddScreen({ navigation }) {
     setRefreshing(true);
     setData("");
     setType("");
-    setImage(null);
     setRefreshing(false);
   }, []);
 

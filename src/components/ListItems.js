@@ -1,10 +1,13 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { windowWidth } from "../utils/Dimensions";
 
 function ListItem({ data, navigation }) {
+  const handleDataOnPress = () => {
+    navigation.navigate(data.type, { data: data });
+  };
+
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={handleDataOnPress}>
       <View
         style={{
           marginBottom: 20,
