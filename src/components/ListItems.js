@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 
 function ListItem({ data, navigation }) {
+  navigation.removeListener
   const handleDataOnPress = () => {
     navigation.navigate(data.type, { data: data });
   };

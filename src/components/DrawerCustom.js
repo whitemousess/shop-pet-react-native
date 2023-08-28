@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,11 +8,21 @@ import {
 } from "react-native";
 import {
   DrawerContentScrollView,
-  DrawerItemList,
+  DrawerItemList
 } from "@react-navigation/drawer";
-import { FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+
+import * as userService from "../services/userService";
 
 function DrawerCustom(props) {
+  const [user, setUser] = useState("");
+
+  // call api user
+  useEffect(() => {
+    userService.getUser({}).then((res) => setUser(res));
+  }, []);
+
+
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -24,22 +34,30 @@ function DrawerCustom(props) {
           style={{ padding: 20, flexDirection: "row" }}
         >
           <Image
-            source={require("../assets/images/Avatar.jpg")}
+            source={{ uri: user.avatar }}
             style={{
               height: 80,
               width: 80,
               borderRadius: 40,
               marginBottom: 10,
-              marginRight: 24
+              marginRight: 24,
             }}
           />
           <View>
             <Text style={{ color: "#000", fontSize: 18, marginBottom: 5 }}>
-              Chuot bach
+              {user.firstName && user.lastName
+                ? user.firstName + " " + user.lastName
+                : user.username}
             </Text>
+            {user.role === 0 ? (
             <Text style={{ color: "#000", fontSize: 18, marginBottom: 5 }}>
               Quản lý
             </Text>
+            ) : (
+              <Text style={{ color: "#000", fontSize: 18, marginBottom: 5 }}>
+                Người dùng
+              </Text>
+            )}
           </View>
         </ImageBackground>
 

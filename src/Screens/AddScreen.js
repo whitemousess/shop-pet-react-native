@@ -14,8 +14,8 @@ import axios from "axios";
 // Picker
 import { Picker } from "@react-native-picker/picker";
 
-import ButtonCustom from "../components/ButtonCustom";
-import UploadImage from "../components/UploadImage";
+import ButtonCustom from "~/components/ButtonCustom";
+import UploadImage from "~/components/UploadImage";
 
 function AddScreen({ navigation }) {
   const [type, setType] = useState("");
@@ -32,7 +32,6 @@ function AddScreen({ navigation }) {
       ...prevData,
       [key]: value,
     }));
-    console.log(data);
   };
 
   const handleImageUpload = (imageUri) => {
@@ -51,7 +50,7 @@ function AddScreen({ navigation }) {
     formData.append("description", data.description);
 
     await axios
-      .post("http://192.168.1.5:1407/api/pet/add", formData, {
+      .post(`${process.env.REACT_NATIVE_BASE_URL}pet/add`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization:

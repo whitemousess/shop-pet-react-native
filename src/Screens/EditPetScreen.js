@@ -13,8 +13,8 @@ import axios from "axios";
 // Picker
 import { Picker } from "@react-native-picker/picker";
 
-import ButtonCustom from "../components/ButtonCustom";
-import UploadImage from "../components/UploadImage";
+import ButtonCustom from "~/components/ButtonCustom";
+import UploadImage from "~/components/UploadImage";
 
 function EditPetScreen({ route, navigation }) {
   const { data } = route.params;
@@ -34,7 +34,6 @@ function EditPetScreen({ route, navigation }) {
       ...prevData,
       [key]: value,
     }));
-    console.log(editData);
   };
 
   const handleImageUpload = (imageUri) => {
@@ -57,7 +56,7 @@ function EditPetScreen({ route, navigation }) {
     formData.append("description", editData.description);
 
     await axios
-      .put(`http://192.168.1.5:1407/api/pet/${data._id}/edit`, formData, {
+      .put(`${process.env.REACT_NATIVE_BASE_URL}pet/${data._id}/edit`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization:

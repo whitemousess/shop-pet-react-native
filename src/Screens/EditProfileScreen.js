@@ -13,8 +13,8 @@ import {
 // Picker
 import { Picker } from "@react-native-picker/picker";
 
-import ButtonCustom from "../components/ButtonCustom";
-import UploadImage from "../components/UploadImage";
+import ButtonCustom from "~/components/ButtonCustom";
+import UploadImage from "~/components/UploadImage";
 
 function EditProfileScreen() {
   const [type, setType] = useState();

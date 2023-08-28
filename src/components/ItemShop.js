@@ -6,26 +6,26 @@ import {
   StyleSheet,
   TouchableOpacity,
   Modal,
-  Vibration
+  Vibration,
 } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 
-import * as petService from "~/services/petService";
+import * as shopService from "../services/shopService";
 
-function ListItemManager({ data, onLoadData, navigation }) {
+function ItemShop({ data, onLoadData }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
-    Vibration.vibrate(); 
+    Vibration.vibrate();
   };
 
   const handleYesPress = () => {
-    petService
-      .deletePet({ deleteID: data._id })
-      .then(onLoadData())
-      .catch((error) => console.log(error));
+    shopService
+      .removeProduct({ id: data._id })
+      .then(() => onLoadData())
+      .catch((error) => console.error(error));
   };
 
   const renderRightActions = (progress, dragX) => {
@@ -37,12 +37,6 @@ function ListItemManager({ data, onLoadData, navigation }) {
 
     return (
       <View style={styles.actionContainer}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Edit", { data: data })}
-          style={[styles.actionButton, { backgroundColor: "blue" }]}
-        >
-          <Ionicons name="pencil-outline" size={24} color="white" />
-        </TouchableOpacity>
         <TouchableOpacity
           onPress={toggleModal}
           style={[styles.actionButton, { backgroundColor: "red" }]}
@@ -57,7 +51,7 @@ function ListItemManager({ data, onLoadData, navigation }) {
         >
           <View style={styles.modalContainer}>
             <Text style={styles.modalText}>
-              Bạn có chắc muốn xóa dữ liệu này?
+              Bạn có chắc muốn xóa đơn hàng này?
             </Text>
             <View style={styles.buttonContainer}>
               <TouchableOpacity
@@ -75,12 +69,11 @@ function ListItemManager({ data, onLoadData, navigation }) {
       </View>
     );
   };
-
   return (
     <Swipeable renderRightActions={renderRightActions}>
       <View style={styles.container}>
-        <Image source={{ uri: data.image }} style={styles.image} />
-        <Text style={styles.text}>{data.name}</Text>
+        <Image source={{ uri: data.shop_product.image }} style={styles.image} />
+        <Text style={styles.text}>{data.shop_product.name}</Text>
       </View>
     </Swipeable>
   );
@@ -144,4 +137,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListItemManager;
+export default ItemShop;

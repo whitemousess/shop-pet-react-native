@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
@@ -9,38 +9,24 @@ import {
   MaterialCommunityIcons,
 } from "react-native-vector-icons";
 
-import TabNavigator from "./TabNavigator";
-import ProfileScreen from "../Screens/ProfileScreen";
-import EditProfileScreen from "../Screens/EditProfileScreen";
-import ManagerScreen from "../Screens/ManagerScreen";
-import EditPetScreen from "../Screens/EditPetScreen";
+import * as userService from "../services/userService";
+import * as shopService from "../services/shopService";
 
-import DrawerCustom from "../components/DrawerCustom";
-import CartScreen from "../Screens/CartScreen";
+import TabNavigator from "./TabNavigator";
+import ProfileScreen from "~/Screens/ProfileScreen";
+import EditProfileScreen from "~/Screens/EditProfileScreen";
+import ManagerScreen from "~/Screens/ManagerScreen";
+import EditPetScreen from "~/Screens/EditPetScreen";
+import SettingScreen from "~/Screens/SettingScreen";
+
+import DrawerCustom from "~/components/DrawerCustom";
+import CartScreen from "~/Screens/CartScreen";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
-const UserStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="UserStack"
-        component={ProfileScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="EditUser"
-        component={EditProfileScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
-};
-
 const ManagerStack = () => {
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Manager" component={ManagerScreen} />
@@ -49,8 +35,23 @@ const ManagerStack = () => {
   );
 };
 
-function AppStack() {
-  const [cartCount, setCartCount] = useState(2);
+const SettingStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Setting" component={SettingScreen} />
+      <Stack.Screen name="UserSetting" component={EditProfileScreen} />
+    </Stack.Navigator>
+  );
+};
+
+function AppStack(props) {
+  const [user, setUser] = useState("");
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    userService.getUser({}).then((res) => setUser(res));
+    shopService.getProduct({}).then((product) => setCartCount(product.length));
+  }, []);
 
   return (
     <Drawer.Navigator
@@ -77,7 +78,7 @@ function AppStack() {
       />
       <Drawer.Screen
         name="User"
-        component={UserStack}
+        component={ProfileScreen}
         options={{
           title: "",
           drawerLabel: "Trang cá nhân",
@@ -103,7 +104,7 @@ function AppStack() {
         }}
       />
 
-      <Drawer.Screen
+      {user.role === 0 ? (<Drawer.Screen
         name="ManagerStack"
         component={ManagerStack}
         options={{
@@ -115,6 +116,18 @@ function AppStack() {
               size={size}
               color={color}
             />
+          ),
+        }}
+      />) : null}
+      
+      <Drawer.Screen
+        name="SettingStack"
+        component={SettingStack}
+        options={{
+          title: "",
+          drawerLabel: "Cài đặt",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="settings" size={size} color={color} />
           ),
         }}
       />

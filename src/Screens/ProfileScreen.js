@@ -1,6 +1,17 @@
-import { View, Text, Button, Image } from "react-native";
+import React , {useState,useEffect} from "react";
+import { View, Text, Image } from "react-native";
+import * as userService from "../services/userService";
 
-function ProfileScreen({ navigation }) {
+function ProfileScreen() {
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    userService
+      .getUser({})
+      .then((res) => setUser(res))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <View>
       <Image
@@ -12,11 +23,10 @@ function ProfileScreen({ navigation }) {
           marginBottom: 10,
         }}
       />
-      <Text style={{ fontSize: 20 }}>Họ : Chuột</Text>
-      <Text style={{ fontSize: 20 }}>Tên : Bạch</Text>
-      <Text style={{ fontSize: 20 }}>Tài khoản : Chuot bach</Text>
-      <Text style={{ fontSize: 20 }}>Email : thang@gmail.com</Text>
-      <Button title="edit" onPress={() => navigation.navigate("EditUser")} />
+      <Text style={{ fontSize: 20 }}>Họ : {user.firstName}</Text>
+      <Text style={{ fontSize: 20 }}>Tên : {user.lastName}</Text>
+      <Text style={{ fontSize: 20 }}>Tài khoản : {user.username}</Text>
+      <Text style={{ fontSize: 20 }}>Email : {user.email}</Text>
     </View>
   );
 }

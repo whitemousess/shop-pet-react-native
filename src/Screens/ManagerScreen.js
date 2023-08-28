@@ -1,16 +1,17 @@
-import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { ScrollView, Text, View, RefreshControl } from "react-native";
-import ListItemManager from "../components/ListItemManager";
 
-function ManagerScreen({ route, navigation }) {
+import * as petService from "~/services/petService";
+import ListItemManager from "~/components/ListItemManager";
+
+function ManagerScreen({ navigation }) {
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const loadData = () => {
-    axios
-      .get("http://192.168.1.5:1407/api/pet/show?page=1&per_page=5")
-      .then((response) => setData(response.data.data))
-      .catch((err) => console.log(err));
+    petService
+    .getPet({page: 1 , perPage: 5})
+    .then((response) => setData(response))
+    .catch((error) => console.log(error)) 
   };
 
   useEffect(() => {

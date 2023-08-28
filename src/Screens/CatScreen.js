@@ -7,22 +7,19 @@ import {
   Text,
   RefreshControl,
 } from "react-native";
-import ListItem from "../components/ListItems";
+
+import * as petService from "~/services/petService";
+import ListItem from "~/components/ListItems";
 
 function CatScreen({ navigation }) {
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
   const loadData = () => {
-    // Thực hiện yêu cầu GET khi component được mount
-    axios
-      .get("http://192.168.1.5:1407/api/pet/show?page=1&per_page=2&type=cats")
-      .then((response) => {
-        setData(response.data.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    petService
+    .getPet({page: 1 ,perPage: 5, type:"cats"})
+    .then((response) => setData(response))
+    .catch((error) => console.log(error))
   };
 
   useEffect(() => {

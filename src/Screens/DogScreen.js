@@ -1,23 +1,24 @@
-import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
-import { ScrollView, SafeAreaView, View, Text, RefreshControl, FlatList } from "react-native";
+import {
+  ScrollView,
+  SafeAreaView,
+  View,
+  Text,
+  RefreshControl,
+} from "react-native";
+import * as petService from "~/services/petService"
 
-import ListItem from "../components/ListItems";
+import ListItem from "~/components/ListItems";
 
 function DogScreen({ navigation }) {
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
   const loadData = () => {
-    // Thực hiện yêu cầu GET khi component được mount
-    axios
-      .get("http://192.168.1.5:1407/api/pet/show?page=1&per_page=2&type=dogs")
-      .then((response) => {
-        setData(response.data.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    petService
+    .getPet({page: 1 ,perPage: 5, type:"dogs"})
+    .then((response) => setData(response))
+    .catch((error) => console.log(error))
   };
 
   useEffect(() => {
@@ -32,13 +33,13 @@ function DogScreen({ navigation }) {
 
   return (
     <ScrollView
-    showsVerticalScrollIndicator={false}
-    showsHorizontalScrollIndicator={false}
-    refreshControl={
-      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-        >
-        <SafeAreaView>
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
+      <SafeAreaView>
         {data.length > 0 ? (
           <View
             style={{
@@ -57,8 +58,8 @@ function DogScreen({ navigation }) {
             <Text>Chưa có thông tin</Text>
           </View>
         )}
-    </SafeAreaView>
-      </ScrollView>
+        </SafeAreaView>
+    </ScrollView>
   );
 }
 

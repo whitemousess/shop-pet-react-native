@@ -10,10 +10,10 @@ import {
 // icons
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 
-import LoginLogo from "../assets/images/LogoApp.png";
+import LoginLogo from "~/assets/images/LogoApp.png";
 
-import InputCustom from "../components/InputCustom";
-import ButtonCustom from "../components/ButtonCustom";
+import InputCustom from "~/components/InputCustom";
+import ButtonCustom from "~/components/ButtonCustom";
 
 function LoginScreen({ navigation }) {
   return (
