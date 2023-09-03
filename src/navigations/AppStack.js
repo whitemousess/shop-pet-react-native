@@ -1,4 +1,4 @@
-import React, { useState ,useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
@@ -9,7 +9,6 @@ import {
   MaterialCommunityIcons,
 } from "react-native-vector-icons";
 
-import * as userService from "../services/userService";
 import * as shopService from "../services/shopService";
 
 import TabNavigator from "./TabNavigator";
@@ -21,12 +20,12 @@ import SettingScreen from "~/Screens/SettingScreen";
 
 import DrawerCustom from "~/components/DrawerCustom";
 import CartScreen from "~/Screens/CartScreen";
+import { AuthContext } from "../context/AuthContext";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
 const ManagerStack = () => {
-
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Manager" component={ManagerScreen} />
@@ -45,11 +44,10 @@ const SettingStack = () => {
 };
 
 function AppStack(props) {
-  const [user, setUser] = useState("");
   const [cartCount, setCartCount] = useState(0);
+  const { userInfo } = useContext(AuthContext);
 
   useEffect(() => {
-    userService.getUser({}).then((res) => setUser(res));
     shopService.getProduct({}).then((product) => setCartCount(product.length));
   }, []);
 
@@ -104,22 +102,24 @@ function AppStack(props) {
         }}
       />
 
-      {user.role === 0 ? (<Drawer.Screen
-        name="ManagerStack"
-        component={ManagerStack}
-        options={{
-          title: "",
-          drawerLabel: "Quản lý",
-          drawerIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="database-settings"
-              size={size}
-              color={color}
-            />
-          ),
-        }}
-      />) : null}
-      
+      {userInfo.role === 0 ? (
+        <Drawer.Screen
+          name="ManagerStack"
+          component={ManagerStack}
+          options={{
+            title: "",
+            drawerLabel: "Quản lý",
+            drawerIcon: ({ color, size }) => (
+              <MaterialCommunityIcons
+                name="database-settings"
+                size={size}
+                color={color}
+              />
+            ),
+          }}
+        />
+      ) : null}
+
       <Drawer.Screen
         name="SettingStack"
         component={SettingStack}

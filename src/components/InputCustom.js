@@ -8,6 +8,8 @@ function InputCustom({
   keyboardType,
   fieldButtonLabel,
   fieldButtonFunction,
+  value,
+  onChangeText,
 }) {
   return (
     <View
@@ -23,16 +25,25 @@ function InputCustom({
         <TextInput
           placeholder={label}
           keyboardType={keyboardType}
-          style={{ flex: 1, paddingVertical: 0 , marginBottom: 30}}
+          style={{ flex: 1, paddingVertical: 0, marginBottom: 30 }}
           placeholderTextColor="#ccc"
           secureTextEntry={true}
+          value={value}
+          onChangeText={onChangeText}
         />
       ) : (
         <TextInput
           placeholder={label}
           keyboardType={keyboardType}
           placeholderTextColor="#ccc"
-          style={{ flex: 1, paddingVertical: 0 , marginBottom: 30,color: "#000"}}
+          style={{
+            flex: 1,
+            paddingVertical: 0,
+            marginBottom: 30,
+            color: "#000",
+          }}
+          value={value}
+          onChangeText={onChangeText}
         />
       )}
 

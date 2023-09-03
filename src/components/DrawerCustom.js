@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,21 +8,14 @@ import {
 } from "react-native";
 import {
   DrawerContentScrollView,
-  DrawerItemList
+  DrawerItemList,
 } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
 
-import * as userService from "../services/userService";
+import { AuthContext } from "../context/AuthContext";
 
 function DrawerCustom(props) {
-  const [user, setUser] = useState("");
-
-  // call api user
-  useEffect(() => {
-    userService.getUser({}).then((res) => setUser(res));
-  }, []);
-
-
+  const { logout, userInfo } = useContext(AuthContext);
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -34,7 +27,7 @@ function DrawerCustom(props) {
           style={{ padding: 20, flexDirection: "row" }}
         >
           <Image
-            source={{ uri: user.avatar }}
+            source={{ uri: userInfo.avatar }}
             style={{
               height: 80,
               width: 80,
@@ -45,19 +38,15 @@ function DrawerCustom(props) {
           />
           <View>
             <Text style={{ color: "#000", fontSize: 18, marginBottom: 5 }}>
-              {user.firstName && user.lastName
-                ? user.firstName + " " + user.lastName
-                : user.username}
+              {userInfo.firstName && userInfo.lastName
+                ? userInfo.firstName + " " + userInfo.lastName
+                : userInfo.username}
             </Text>
-            {user.role === 0 ? (
-            <Text style={{ color: "#000", fontSize: 18, marginBottom: 5 }}>
-              Quản lý
-            </Text>
-            ) : (
+            {userInfo.role === 0 ? (
               <Text style={{ color: "#000", fontSize: 18, marginBottom: 5 }}>
-                Người dùng
+                Quản lý
               </Text>
-            )}
+            ) : null} 
           </View>
         </ImageBackground>
 
@@ -73,7 +62,12 @@ function DrawerCustom(props) {
           borderTopColor: "#ccc",
         }}
       >
-        <TouchableOpacity onPress={() => {}} style={{ paddingVertical: 15 }}>
+        <TouchableOpacity
+          onPress={() => {
+            logout();
+          }}
+          style={{ paddingVertical: 15 }}
+        >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Ionicons name="exit-outline" size={22} />
             <Text

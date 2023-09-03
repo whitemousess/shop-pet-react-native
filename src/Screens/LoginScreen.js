@@ -1,11 +1,5 @@
-import React from "react";
-import {
-  SafeAreaView,
-  View,
-  Text,
-  Image,
-  StyleSheet,
-} from "react-native";
+import React, { useContext, useState } from "react";
+import { SafeAreaView, View, Text, Image, StyleSheet } from "react-native";
 
 // icons
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
@@ -14,8 +8,13 @@ import LoginLogo from "~/assets/images/LogoApp.png";
 
 import InputCustom from "~/components/InputCustom";
 import ButtonCustom from "~/components/ButtonCustom";
+import { AuthContext } from "../context/AuthContext";
 
 function LoginScreen({ navigation }) {
+  const { login } = useContext(AuthContext);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -37,7 +36,7 @@ function LoginScreen({ navigation }) {
           </Text>
 
           <InputCustom
-            label={"Email ID"}
+            label={"user ID"}
             icon={
               <MaterialIcons
                 name="person"
@@ -46,7 +45,8 @@ function LoginScreen({ navigation }) {
                 style={{ marginRight: 5 }}
               />
             }
-            keyboardType="email-address"
+            value={username}
+            onChangeText={(text) => setUsername(text)}
           />
           <InputCustom
             label={"Mật khẩu"}
@@ -61,15 +61,20 @@ function LoginScreen({ navigation }) {
             inputType="password"
             fieldButtonLabel={"Forgot?"}
             fieldButtonFunction={() => {}}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
           />
 
-              <ButtonCustom label={"Đăng nhập"} onPress={() => {}} />
-    
-              <Text
-                onPress={() => navigation.navigate("Register")}
-              >
-                Chưa có tài khoản!
-              </Text>
+          <ButtonCustom
+            label={"Đăng nhập"}
+            onPress={() => {
+              login(username, password);
+            }}
+          />
+
+          <Text onPress={() => navigation.navigate("Register")}>
+            Chưa có tài khoản!
+          </Text>
         </View>
       </View>
     </SafeAreaView>
@@ -94,7 +99,6 @@ const styles = StyleSheet.create({
     width: 400,
     height: 200,
   },
-  
 });
 
 export default LoginScreen;
