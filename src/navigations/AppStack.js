@@ -43,12 +43,12 @@ const SettingStack = () => {
   );
 };
 
-function AppStack(props) {
+function AppStack() {
   const [cartCount, setCartCount] = useState(0);
   const { userInfo } = useContext(AuthContext);
 
   useEffect(() => {
-    shopService.getProduct({}).then((product) => setCartCount(product.length));
+    shopService.getProduct().then((product) => setCartCount(product.length));
   }, []);
 
   return (

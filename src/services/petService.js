@@ -1,4 +1,5 @@
 import * as httpRequest from "~/utils/httprequest";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const getPet = async ({ page, perPage, type }) => {
   try {
@@ -17,14 +18,14 @@ export const getPet = async ({ page, perPage, type }) => {
 
 export const deletePet = async ({ deleteID }) => {
   try {
+    const Token = await AsyncStorage.getItem("token");
     const res = await httpRequest.deleteData(`pet/${deleteID}/delete`, {
       headers: {
         "Content-Type": "multipart/form-data",
-        authorization:
-          "Bearer " +
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ3NDg4ZDFlYjBiMjEyNzFiZGRjOGIiLCJpYXQiOjE2OTE4Mzg1MTN9.unlTWuKAln8iLccIvWvuJ-Ddjk0qHS5_SjwWlKSXXPQ",
+        authorization: "Bearer " + Token,
       },
     });
+    return res.data;
   } catch (error) {
     console.log(error);
   }

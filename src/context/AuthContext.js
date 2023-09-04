@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
         AsyncStorage.setItem("info", JSON.stringify(Info));
       });
 
-    setIsLoading(false);
+    setTimeout(() => {setIsLoading(false)},100)
   };
 
   const logout = () => {
@@ -38,23 +38,29 @@ export const AuthProvider = ({ children }) => {
     setUserInfo("");
     AsyncStorage.removeItem("token");
     AsyncStorage.removeItem("info");
-    setIsLoading(false);
+    setTimeout(() => {setIsLoading(false)},100)
   };
 
   const isLoggedIn = async () => {
     try {
-      const Info = await AsyncStorage.getItem("info")
+      setIsLoading(true);
+      const Info = await AsyncStorage.getItem("info");
 
-      if(Info){
+      if (Info) {
         setUserInfo(JSON.parse(Info));
       }
-      
-    } catch (error) {}
+
+      setTimeout(() => {setIsLoading(false)},100)
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
     isLoggedIn();
   }, []);
+
+console.log(isLoading )
 
   return (
     <AuthContext.Provider
