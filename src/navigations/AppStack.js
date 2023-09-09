@@ -47,9 +47,16 @@ function AppStack() {
   const [cartCount, setCartCount] = useState(0);
   const { userInfo } = useContext(AuthContext);
 
-  useEffect(() => {
+  const loadData = () => {
     shopService.getProduct().then((product) => setCartCount(product.length));
-  }, []);
+  };
+
+  {
+    userInfo &&
+      useEffect(() => {
+        loadData();
+      }, []);
+  }
 
   return (
     <Drawer.Navigator

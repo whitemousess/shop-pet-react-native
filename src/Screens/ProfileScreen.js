@@ -1,21 +1,14 @@
-import React , {useState,useEffect} from "react";
+import React , { useContext} from "react";
 import { View, Text, Image } from "react-native";
-import * as userService from "../services/userService";
+import { AuthContext } from "../context/AuthContext";
 
 function ProfileScreen() {
-  const [user, setUser] = useState("");
-
-  useEffect(() => {
-    userService
-      .getUser({})
-      .then((res) => setUser(res))
-      .catch((err) => console.log(err));
-  }, []);
+  const {userInfo} = useContext(AuthContext)
 
   return (
     <View>
       <Image
-        source={require("../assets/images/Avatar.jpg")}
+        source={{uri: userInfo.avatar}}
         style={{
           height: 200,
           width: 200,
@@ -23,10 +16,10 @@ function ProfileScreen() {
           marginBottom: 10,
         }}
       />
-      <Text style={{ fontSize: 20 }}>Họ : {user.firstName}</Text>
-      <Text style={{ fontSize: 20 }}>Tên : {user.lastName}</Text>
-      <Text style={{ fontSize: 20 }}>Tài khoản : {user.username}</Text>
-      <Text style={{ fontSize: 20 }}>Email : {user.email}</Text>
+      <Text style={{ fontSize: 20 }}>Họ : {userInfo.firstName}</Text>
+      <Text style={{ fontSize: 20 }}>Tên : {userInfo.lastName}</Text>
+      <Text style={{ fontSize: 20 }}>Tài khoản : {userInfo.username}</Text>
+      <Text style={{ fontSize: 20 }}>Email : {userInfo.email}</Text>
     </View>
   );
 }

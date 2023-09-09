@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import {
   ScrollView,
@@ -12,11 +12,12 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import * as userService from "../services/userService";
+import { AuthContext } from "~/context/AuthContext";
 
 function InfoPetScreen({ route }) {
   const { data } = route.params;
+  const {showNotifications} = useContext(AuthContext) 
   const [shopData, setShopData] = useState({ id_user: "", shop_product: "" });
-  const [animation] = useState(new Animated.Value(-100));
 
   useEffect(() => {
     userService
@@ -27,7 +28,7 @@ function InfoPetScreen({ route }) {
   }, []);
 
   const submitAddProduct = async () => {
-    showNotification();
+    showNotifications("Đã thêm vào giỏ hàng");
     const storedToken = await AsyncStorage.getItem("token");
     await axios
       .post(`${process.env.REACT_NATIVE_BASE_URL}shop/add-to-card`, shopData, {
@@ -38,20 +39,6 @@ function InfoPetScreen({ route }) {
       .catch((err) => console.error(err));
   };
 
-  const showNotification = () => {
-    Animated.spring(animation, {
-      toValue: 0, // Giá trị cuối cùng, hiển thị thông báo
-      useNativeDriver: false, // Sử dụng Native Driver
-    }).start();
-
-    setTimeout(() => {
-      Animated.timing(animation, {
-        toValue: -100, // Đẩy thông báo ra khỏi màn hình
-        duration: 300,
-        useNativeDriver: false,
-      }).start();
-    }, 4000);
-  };
   return (
     <View style={styles.container}>
       <ScrollView
@@ -69,25 +56,10 @@ function InfoPetScreen({ route }) {
         <TouchableOpacity style={styles.btnAddCart} onPress={submitAddProduct}>
           <Text>Thêm giỏ hàng</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btnAddCart} onPress={showNotification}>
+        <TouchableOpacity style={styles.btnAddCart} onPress={() => {showNotifications("Đã thêm vào giỏ hàng")}}>
           <Text>Mua Ngay</Text>
         </TouchableOpacity>
       </View>
-
-      <Animated.View
-        style={{
-          position: "absolute",
-          top: animation, // Áp dụng giá trị animation vào vị trí y
-          left: 0,
-          right: 0,
-          height: 50,
-          backgroundColor: "#A8DF8E",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Text>Đã thêm vào giỏ hàng</Text>
-      </Animated.View>
     </View>
   );
 }

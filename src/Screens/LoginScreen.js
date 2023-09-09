@@ -14,7 +14,7 @@ function LoginScreen({ navigation }) {
   const { login } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  
   return (
     <SafeAreaView style={styles.container}>
       <View>

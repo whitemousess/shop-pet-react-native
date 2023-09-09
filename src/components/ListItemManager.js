@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Modal,
-  Vibration
+  Vibration,
 } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,7 +18,7 @@ function ListItemManager({ data, onLoadData, navigation }) {
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
-    Vibration.vibrate(); 
+    Vibration.vibrate();
   };
 
   const handleYesPress = () => {

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -14,10 +14,12 @@ import axios from "axios";
 // Picker
 import { Picker } from "@react-native-picker/picker";
 
+import { AuthContext } from "~/context/AuthContext";
 import ButtonCustom from "~/components/ButtonCustom";
 import UploadImage from "~/components/UploadImage";
 
 function AddScreen({ navigation }) {
+  const { userToken } = useContext(AuthContext);
   const [type, setType] = useState("");
   const [data, setData] = useState({ name: "", description: "" });
   const [image, setImage] = useState(null);
@@ -53,9 +55,7 @@ function AddScreen({ navigation }) {
       .post(`${process.env.REACT_NATIVE_BASE_URL}pet/add`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          authorization:
-            "Bearer " +
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ3NDg4ZDFlYjBiMjEyNzFiZGRjOGIiLCJpYXQiOjE2OTE4Mzg1MTN9.unlTWuKAln8iLccIvWvuJ-Ddjk0qHS5_SjwWlKSXXPQ",
+          authorization: "Bearer " + userToken,
         },
       })
       .then((response) => {

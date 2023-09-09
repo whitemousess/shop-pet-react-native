@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -15,9 +15,11 @@ import { Picker } from "@react-native-picker/picker";
 
 import ButtonCustom from "~/components/ButtonCustom";
 import UploadImage from "~/components/UploadImage";
+import { AuthContext } from "~/context/AuthContext";
 
 function EditPetScreen({ route, navigation }) {
   const { data } = route.params;
+  const { userToken } = useContext(AuthContext)
   const [type, setType] = useState(data.type);
   const [editData, setEditData] = useState({
     name: data.name,
@@ -60,8 +62,7 @@ function EditPetScreen({ route, navigation }) {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization:
-            "Bearer " +
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ3NDg4ZDFlYjBiMjEyNzFiZGRjOGIiLCJpYXQiOjE2OTE4Mzg1MTN9.unlTWuKAln8iLccIvWvuJ-Ddjk0qHS5_SjwWlKSXXPQ",
+            "Bearer " + userToken
         },
       })
       .then((response) => {

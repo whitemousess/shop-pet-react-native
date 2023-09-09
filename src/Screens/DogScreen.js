@@ -16,7 +16,7 @@ function DogScreen({ navigation }) {
 
   const loadData = () => {
     petService
-    .getPet({page: 1 ,perPage: 5, type:"dogs"})
+    .getPet({type:"dogs"})
     .then((response) => setData(response))
     .catch((error) => console.log(error))
   };

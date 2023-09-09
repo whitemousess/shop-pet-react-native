@@ -11,7 +11,8 @@ function ListItem({ data, navigation }) {
     <TouchableOpacity onPress={handleDataOnPress}>
       <View
         style={{
-          marginBottom: 20,
+          width: 160, height: 160,
+          marginBottom: 50,
           margin: 20,
         }}
       >

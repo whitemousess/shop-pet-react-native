@@ -9,7 +9,7 @@ function ManagerScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const loadData = () => {
     petService
-    .getPet({page: 1 , perPage: 5})
+    .getPet({})
     .then((response) => setData(response))
     .catch((error) => console.log(error)) 
   };

@@ -59,7 +59,7 @@ function CatScreen({ navigation }) {
             <Text>Chưa có thông tin</Text>
           </View>
         )}
-      </SafeAreaView>
+        </SafeAreaView>
     </ScrollView>
   );
 }
